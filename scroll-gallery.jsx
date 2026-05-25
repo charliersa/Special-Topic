@@ -2,28 +2,28 @@ const { useState, useEffect, useRef, useMemo } = React;
 
 // Curated narrative: cover → opener poem → team → ink series → cake series → animal series
 const POSTERS = [
-  { src: "images/01.png", title: "115 年度 多媒新生代", subtitle: "設計展主視覺", group: "intro" },
-  { src: "images/19.png", title: "序", subtitle: "在沉靜的沙盒之中", group: "intro" },
-  { src: "images/18.png", title: "團隊陣容", subtitle: "Team Profile", group: "intro" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic1.png", title: "115 年度 多媒新生代", subtitle: "設計展主視覺", group: "intro" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic19.png", title: "序", subtitle: "在沉靜的沙盒之中", group: "intro" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic18.png", title: "團隊陣容", subtitle: "Team Profile", group: "intro" },
 
-  { src: "images/04.png", title: "簡約", subtitle: "墨韻文創 主視覺", group: "ink" },
-  { src: "images/02.png", title: "墨非定律", subtitle: "設計理念．水墨痕跡", group: "ink" },
-  { src: "images/05.png", title: "山水留白", subtitle: "墨非定律 風景視覺", group: "ink" },
-  { src: "images/06.png", title: "青山不墨", subtitle: "千秋畫．流水無弦萬古琴", group: "ink" },
-  { src: "images/07.png", title: "詩意的起點", subtitle: "一筆濃淡 一行留白", group: "ink" },
-  { src: "images/03.png", title: "周邊延伸", subtitle: "徽章．馬克杯．咖啡墊．名片", group: "ink" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic04.png", title: "簡約", subtitle: "墨韻文創 主視覺", group: "ink" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic02.png", title: "墨非定律", subtitle: "設計理念．水墨痕跡", group: "ink" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic05.png", title: "山水留白", subtitle: "墨非定律 風景視覺", group: "ink" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic06.png", title: "青山不墨", subtitle: "千秋畫．流水無弦萬古琴", group: "ink" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic07.png", title: "詩意的起點", subtitle: "一筆濃淡 一行留白", group: "ink" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic03.png", title: "周邊延伸", subtitle: "徽章．馬克杯．咖啡墊．名片", group: "ink" },
 
-  { src: "images/08.png", title: "CAKE CRAFT", subtitle: "蛋糕文化．設計動機與理念", group: "cake" },
-  { src: "images/10.png", title: "黑森林蛋糕", subtitle: "Schwarzwälder Kirschtorte . DE", group: "cake" },
-  { src: "images/11.png", title: "巴滕伯格蛋糕", subtitle: "Battenberg Cake . UK", group: "cake" },
-  { src: "images/12.png", title: "草莓奶霜", subtitle: "Strawberry Cream . US", group: "cake" },
-  { src: "images/13.png", title: "起司の蛋糕", subtitle: "チーズケーキ . JP", group: "cake" },
-  { src: "images/14.png", title: "瑪德蓮", subtitle: "Madeleine . FR", group: "cake" },
-  { src: "images/15.png", title: "寶島頂級鮮果", subtitle: "Fruit Cake . TW", group: "cake" },
-  { src: "images/09.png", title: "周邊延伸", subtitle: "名片．杯墊．馬克杯．吉祥物", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic08.png", title: "CAKE CRAFT", subtitle: "蛋糕文化．設計動機與理念", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic10.png", title: "黑森林蛋糕", subtitle: "Schwarzwälder Kirschtorte . DE", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic11.png", title: "巴滕伯格蛋糕", subtitle: "Battenberg Cake . UK", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic12.png", title: "草莓奶霜", subtitle: "Strawberry Cream . US", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic13.png", title: "起司の蛋糕", subtitle: "チーズケーキ . JP", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic14.png", title: "瑪德蓮", subtitle: "Madeleine . FR", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic15.png", title: "寶島頂級鮮果", subtitle: "Fruit Cake . TW", group: "cake" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic09.png", title: "周邊延伸", subtitle: "名片．杯墊．馬克杯．吉祥物", group: "cake" },
 
-  { src: "images/16.png", title: "療育的動物們", subtitle: "設計理念", group: "animal" },
-  { src: "images/17.png", title: "癒しの動物たち", subtitle: "主視覺插畫", group: "animal" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic16.png", title: "療育的動物們", subtitle: "設計理念", group: "animal" },
+  { src: "https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic17.png", title: "癒しの動物たち", subtitle: "主視覺插畫", group: "animal" },
 ];
 
 const DEFAULTS = /*EDITMODE-BEGIN*/{
