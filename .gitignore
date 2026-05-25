@@ -1,0 +1,24 @@
+# 相依套件
+node_modules/
+
+# Vite 建置輸出
+dist/
+dist-ssr/
+
+# 環境變數（含機密，勿上傳）
+.env
+.env.local
+.env.*.local
+
+# 編輯器暫存
+.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
