@@ -3,17 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>畢業專題長卷 — 嵌入測試</title>
+  <title>2026 多媒新生代成果展</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #111; }
 
-    .embed-wrap {
-      width: 100%;
-      height: 100vh;          /* 填滿整個視窗高度 */
+    body {
+      font-family: sans-serif;
+      background: #f5f0e8;
+      /* 整頁可以垂直捲動，讓使用者捲到長卷 iframe */
+      overflow-y: auto;
     }
 
-    iframe {
+    /* ── 標題列 ── */
+    .page-title {
+      text-align: center;
+      padding: 18px 16px 14px;
+      font-size: 22px;
+      font-weight: bold;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .page-title a {
+      color: #8a2f24;
+      text-decoration: none;
+    }
+    .page-title a:hover { text-decoration: underline; }
+
+    /* ── 橫向圖片卷軸 ── */
+    /* 外層：固定寬度並開啟橫向捲軸 */
+    .scroll-outer {
+      width: 100%;
+      overflow-x: auto;          /* ← 關鍵！讓圖片列可以橫向捲動 */
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      background: #ece6d8;
+      padding: 16px 0;
+      cursor: grab;
+    }
+    .scroll-outer:active { cursor: grabbing; }
+    /* 隱藏捲軸外觀（保留功能） */
+    .scroll-outer::-webkit-scrollbar { height: 4px; }
+    .scroll-outer::-webkit-scrollbar-thumb { background: rgba(0,0,0,.2); border-radius: 2px; }
+
+    /* 內層：Flexbox 讓圖片排成一橫列 */
+    .scroll-wrapper {
+      display: flex;
+      gap: 12px;
+      padding: 0 20px;
+      width: max-content;        /* ← 讓內容撐開，超出外層觸發捲軸 */
+    }
+
+    /* 圖片自身樣式 */
+    .scroll-wrapper img {
+      width: 260px;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      transition: transform .2s;
+      pointer-events: none;      /* 避免圖片攔截拖曳事件 */
+    }
+    .scroll-wrapper img:hover { transform: scale(1.02); }
+
+    /* ── 分隔線 + 說明文字 ── */
+    .section-label {
+      text-align: center;
+      padding: 20px 16px 10px;
+      font-size: 14px;
+      color: #666;
+      letter-spacing: .1em;
+    }
+
+    /* ── 長卷 iframe 嵌入區 ── */
+    .gallery-embed {
+      width: 100%;
+      height: 85vh;              /* 畫面 85% 高度，確保底部卷軸控制列可見 */
+    }
+    .gallery-embed iframe {
       display: block;
       width: 100%;
       height: 100%;
@@ -23,9 +90,44 @@
 </head>
 <body>
 
-  <div class="embed-wrap">
+  <!-- 標題 -->
+  <div class="page-title">
+    <a href="https://special-topic-git-main-charlie88556-1479s-projects.vercel.app/" target="_blank">
+      2026 多媒新生代成果展
+    </a>
+    &nbsp;— 展示網站
+  </div>
+
+  <!-- 橫向圖片卷軸（純圖片快覽） -->
+  <div class="scroll-outer" id="imgScroll">
+    <div class="scroll-wrapper">
+      <img alt="115年度 多媒新生代" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678917/MD/Special%20Topic/Special_Topic1.png" />
+      <img alt="圖片2"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678916/MD/Special%20Topic/Special_Topic2.png" />
+      <img alt="圖片3"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678915/MD/Special%20Topic/Special_Topic3.png" />
+      <img alt="圖片4"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678914/MD/Special%20Topic/Special_Topic4.png" />
+      <img alt="圖片5"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678913/MD/Special%20Topic/Special_Topic5.png" />
+      <img alt="圖片6"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic6.png" />
+      <img alt="圖片7"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic7.png" />
+      <img alt="圖片8"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic8.png" />
+      <img alt="圖片9"  src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic9.png" />
+      <img alt="圖片10" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic10.png" />
+      <img alt="圖片11" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic11.png" />
+      <img alt="圖片12" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic12.png" />
+      <img alt="圖片13" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic13.png" />
+      <img alt="圖片14" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic14.png" />
+      <img alt="圖片15" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic15.png" />
+      <img alt="圖片16" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic16.png" />
+      <img alt="圖片17" src="https://res.cloudinary.com/dbiirpmpy/image/upload/v1779678912/MD/Special%20Topic/Special_Topic17.png" />
+    </div>
+  </div>
+
+  <!-- 引導說明 -->
+  <div class="section-label">▼ 向下捲動，進入互動式長卷展示 ▼</div>
+
+  <!-- React 互動長卷 iframe（佔畫面 85% 高度，底部卷軸控制列完整呈現） -->
+  <div class="gallery-embed">
     <iframe
-      src="https://special-topic-git-main-charlie88556-1479s-projects.vercel.app/"
+      src="https://special-topic-navy.vercel.app/"
       title="畢業專題長卷"
       allow="fullscreen"
       allowfullscreen
@@ -33,6 +135,21 @@
       loading="lazy"
     ></iframe>
   </div>
+
+  <script>
+    /* 讓圖片區支援滑鼠拖曳橫向捲動 */
+    const el = document.getElementById('imgScroll');
+    let down = false, startX, scrollLeft;
+    el.addEventListener('mousedown', e => {
+      down = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft;
+    });
+    window.addEventListener('mouseup', () => down = false);
+    window.addEventListener('mousemove', e => {
+      if (!down) return;
+      const x = e.pageX - el.offsetLeft;
+      el.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    });
+  </script>
 
 </body>
 </html>
